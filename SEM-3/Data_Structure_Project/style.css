@@ -1,0 +1,59 @@
+*{
+    margin:0;
+    padding: 0;
+}
+.text{
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #285390;
+
+    font-family: sans-serif
+}
+#card{
+    background-color: #fbfcff;
+}
+.discription{
+    color: black;
+    font-weight: 500;
+}
+
+body {
+        font-family: 'Inter', sans-serif;
+        background-color: #e8e8ea;
+}
+        #nextStepBtn,#prevStepBtn,#reStart{
+            height: fit-content;
+        }
+        .stack-item {
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .highlight {
+            background-color: #a5f3e0;
+            color: #0d9488;
+            font-weight: 700;
+            transform: scale(1.03);
+            border: 2px solid #0d9488;
+        }
+        .token-current {
+            background-color: #a7f3d0;
+            color: #065f46;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+        #stack-display::-webkit-scrollbar {
+            width: 8px;
+        }
+        #stack-display::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 10px;
+        }
+        #stack-display::-webkit-scrollbar-track {
+            background: #e2e8f0;
+        }

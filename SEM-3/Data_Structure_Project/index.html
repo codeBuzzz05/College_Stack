@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postfix Evaluator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl p-6 md:p-10" id="card">
+        <h1 class="text">Evalutaion of Postfix expression</h1>
+        <p class=discription>
+             This application uses the <strong>Stack</strong> data structure to first convert an Infix expression to Postfix, and then evaluate the Postfix expression step-by-step.
+            <br><strong class="text-indigo-600">Supported operators: +  -  *  /   ^  </strong>  
+        </p>
+
+        <div class="mb-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <label for="infixInput" class="block text-lg font-semibold text-blue-800 mb-2">
+                Enter Infix Expression
+            </label>
+            <div class="flex flex-col md:flex-row gap-3">
+                <input type="text" id="infixInput" value=""
+                       class="flex-grow p-3 border border-blue-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 text-lg"
+                       placeholder="e.g., (A+B)*C^D">
+                <button id="convertBtn"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-200 disabled:opacity-50">
+                    Convert to Postfix
+                </button>
+            </div>
+            <p id="errorMsg" class="text-red-600 mt-2 font-medium hidden"></p>
+        </div>
+
+        <div id="resultSection" class="mb-8 p-6 bg-gray-50 border border-gray-200 rounded-lg shadow-inner hidden">
+            <h2 class="text-xl font-bold text-gray-700 mb-3">Postfix Expression:</h2>
+            <div id="postfixDisplay" class="text-2xl font-mono p-4 bg-white border border-gray-300 rounded-lg mb-4 flex flex-wrap gap-2">
+            </div>
+            <div class="flex flex-col sm:flex-row justify-between items-center mt-4 gap-4">
+                <p id="currentResult" class="text-xl font-bold text-green-700 w-full text-center sm:w-auto sm:text-left">Final Result: <span class="font-mono text-3xl">--</span></p>
+                
+                <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                    <div class="flex gap-3 w-full">
+                        <button id="prevStepBtn"
+                                class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg shadow-lg transition duration-200 disabled:opacity-50">
+                             Previous
+                        </button>
+                        <button id="nextStepBtn"
+                                class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg shadow-lg transition duration-200 disabled:opacity-50">
+                            Next
+                        </button>
+                    </div>
+                    <button id="restartBtn"
+                            class="w-full sm:w-auto bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-4 rounded-lg shadow-lg transition duration-200">
+                        Restart
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="animationSection" class="p-6 border-t border-gray-200 pt-6 hidden">
+            <h2 class="text-xl font-bold text-gray-700 mb-4"><strong>Stack Visualization</strong></h2>
+            
+            <div id="animationMessage" class="text-lg p-3 mb-4 rounded-md bg-indigo-100 text-indigo-800 font-medium">
+                Click 'Next Step' to begin evaluation.
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="md:w-1/2">
+                    <h3 class="text-lg font-semibold text-gray-600 mb-2">Stack Contents</h3>
+                    <div id="stack-container" class="border-4 border-gray-400 rounded-xl p-2 h-64 flex flex-col-reverse relative bg-gray-100 overflow-hidden">
+                        <div id="stack-display" class="flex flex-col-reverse gap-1.5 overflow-y-auto h-full">
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 h-1 bg-gray-600"></div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <h3 class="text-lg font-semibold text-gray-600 mb-2">Process</h3>
+                    <div class="p-4 bg-white border border-gray-300 rounded-lg h-64 shadow-md">
+                        <div class="mb-4">
+                            <span class="text-gray-500 font-medium">Element from the expression</span>
+                            <div id="tokenProcessed" class="text-3xl font-mono text-center p-4 bg-blue-100 rounded-md mt-2">--</div>
+                        </div>
+                        <div class="mb-4">
+                            <span class="text-gray-500 font-medium">Action:</span>
+                            <div id="actionType" class="text-2xl font-semibold text-center p-4 bg-yellow-100 rounded-md mt-2">WAITING</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="app.js">
+
+    </script>
+</body>
+</html>
