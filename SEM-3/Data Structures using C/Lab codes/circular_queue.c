@@ -10,7 +10,7 @@ typedef struct cqueue{
 
 void initialise(cqueue *q){
     q->front=-1;
-    q->front-1;
+    q->rear=-1;
     q->data=(int *)malloc(size*sizeof(int));
 }
 void enqueue(cqueue *q){
@@ -27,13 +27,14 @@ void enqueue(cqueue *q){
         q->data[q->rear]=item;
     }
     else{
-        q->data[(q->rear+1)%size]=item;
+        q->rear=(q->rear+1)%size;
+        q->data[q->rear]=item;
     }
     printf("Element added successfully!\n");
 }
 void dequeue(cqueue *q){
     if(q->rear==-1){
-        printf("Already empty");
+        printf("Already empty\n");
         return  ;
     }
     if(q->front==q->rear){
@@ -43,7 +44,7 @@ void dequeue(cqueue *q){
     else{
         q->front=(q->front+1)%size;
     }
-    printf("element deleted successfully!");
+    printf("element deleted successfully!\n");
 }
 void display(cqueue *q){
     if(q->rear==-1){
@@ -51,10 +52,15 @@ void display(cqueue *q){
         return ;
     }
     int i=q->front;
-    while(i<=q->rear){
+    printf("Queue elements are:\n");
+    while(1){
         printf("%d  ",q->data[i]);
+        if(i==q->rear){
+            break;
+        }
         i=(i+1)%size;
     }
+    printf("\n");
 
 }
 int main(){
@@ -67,8 +73,11 @@ int main(){
         scanf("%d",&choice);
         switch(choice){
             case 1: enqueue(&q);
+                    break;
             case 2:dequeue(&q);
+                    break;
             case 3:display(&q);
+                    break;
             case 4:printf("Exiting\n");
                     exit(0);
             default:printf("Invalid choice\n");
