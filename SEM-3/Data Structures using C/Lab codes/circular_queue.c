@@ -12,6 +12,10 @@ void initialise(cqueue *q){
     q->front=-1;
     q->rear=-1;
     q->data=(int *)malloc(size*sizeof(int));
+    if(q->data==NULL){
+        printf("Error in memory allocation\n");
+        exit(0);
+    }
 }
 void enqueue(cqueue *q){
     if((q->rear+1)%size==q->front){
@@ -79,6 +83,7 @@ int main(){
             case 3:display(&q);
                     break;
             case 4:printf("Exiting\n");
+                    free(q.data);
                     exit(0);
             default:printf("Invalid choice\n");
         }
