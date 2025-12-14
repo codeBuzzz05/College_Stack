@@ -72,6 +72,7 @@ int main(){
             case 3:display();
             break;
             case 4:
+            free(q);
             exit(0);
         }
     }
