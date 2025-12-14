@@ -52,6 +52,7 @@ void delete(){
         if(first->next==NULL){
             free(first);
             first=NULL;
+            printf("Deleted\n");
             return ;
         }
         temp=first;
@@ -76,6 +77,7 @@ void delete(){
         temp->prev->next=temp->next;
         temp->next->prev=temp->prev;
     }
+    printf("deleted successfully\n");
 }
 void display(){
     NODE temp;
