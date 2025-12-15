@@ -33,7 +33,7 @@ void infixtopostfix(char infix[],char postfix[]){
             top--;
         }
         else{
-            while(precedence(stack[top])>precedence(ch)){
+            while(precedence(stack[top])>=precedence(ch)){
                 postfix[k++]=stack[top--];
             }
             stack[++top]=ch;
