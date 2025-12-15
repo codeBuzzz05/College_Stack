@@ -42,7 +42,7 @@ void display(stack *p){
 		printf("Stack is empty!\n");
 	}
 	else{
-		for( int i=p->top;i>=0;i++){
+		for( int i=p->top;i>=0;i--){
 			printf("%d\n",p->data[i]);
 		}
 	}

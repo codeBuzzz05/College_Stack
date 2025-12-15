@@ -8,7 +8,6 @@ struct node {
 };
 
 typedef struct node* NODE;
-NODE root = NULL;
 
 NODE create(int id) {
     NODE temp = (NODE)malloc(sizeof(struct node));
@@ -49,6 +48,7 @@ void largest(NODE root){
 }
 
 int main(){
+    NODE root = NULL;
     int choice, id;
 
     while(1){
