@@ -80,6 +80,7 @@ void search(NODE root,int key){
         search(root->right,key);
     }
 }
+// Delettion is pending
 int main(){
     NODE root=NULL;
     int choice=0;
