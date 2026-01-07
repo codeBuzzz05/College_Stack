@@ -6,35 +6,36 @@ struct node{
     int key;
 }node;
 typedef struct node * NODE;
-NODE insert_node(NODE root ,int item){
-    NODE temp= (NODE)malloc(sizeof(struct node));
+NODE insert_node(NODE root, int key){
+    NODE temp = (NODE)malloc(sizeof(struct node ));
     if(temp==NULL){
-        printf("Memory allocation failed!\n");
+        printf("dynamic allocation failed \n");
         return NULL;
     }
-    temp->key=item;
+    temp->key=key;
     temp->left=temp->right=NULL;
-    NODE ptr=root;
-    NODE parent=NULL;
-    if(ptr==NULL)
-    return temp;
-    while(ptr!=NULL){
-        if(item<ptr->key){
-            parent=ptr;
-            ptr=ptr->left;
+    NODE curr = root;
+    NODE parent =NULL;
+    if(curr==NULL){
+        return temp;
+    }
+    while(curr!=NULL){
+        parent=curr;
+        if(key>curr->key){
+            curr=curr->right;
         }
         else{
-            parent=ptr;
-            ptr=ptr->right;
+            curr=curr->left;
         }
     }
-    if(item<parent->key){
-        parent->left=temp;
-    }
-    else{
+    if(key>parent->key){
         parent->right=temp;
     }
+    else{
+        parent->left=temp;
+    }
     return root;
+    
 }
 void inorder(NODE root){
     if(root==NULL)
@@ -80,7 +81,7 @@ void search(NODE root,int key){
         search(root->right,key);
     }
 }
-// Delettion is pending
+
 int main(){
     NODE root=NULL;
     int choice=0;
