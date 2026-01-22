@@ -1,61 +1,63 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include<stdio.h>
+#include<stdlib.h>
 
 struct node{
-    char id[10];
-    struct node *next;
+  int data;
+  struct node* next;
+};
+typedef struct node* NODE;
 
-}node;
-
-typedef struct node * NODE;
-NODE first=NULL;
+NODE head=NULL;
 
 void insert(){
-NODE ptr,temp;
-temp=(struct node *)malloc(sizeof(struct node));
-if(temp==NULL){
-    printf("Memory allocation failed\n");
+  NODE temp=(struct node*)malloc(sizeof(struct node));
+  if(temp==NULL){
+    printf("Allocation failed\n");
     return ;
-}
-printf("Enter Bill id\n");
-scanf("%s",temp->id);
-temp->next=NULL;
-if(first==NULL){
-    first=temp;
-}
-else{
-    ptr=first;
-    while(ptr->next!=NULL){
-        ptr=ptr->next;
+  }
+  int key;
+  printf("Enter the customer Bill ID\n");
+  scanf("%d",&key);
+  temp->data=key;
+  temp->next=NULL;
+  NODE curr=head;
+  if(curr==NULL){
+    head=temp;
+  }else{
+    while(curr->next!=NULL){
+      curr=curr->next;
     }
-    ptr->next=temp;
-}
-printf("Added successfully\n");
+    curr->next=temp;
+  }
 }
 
-void delete(){
-    if(first==NULL){
-        printf("Its empty!\n");
-        return ;
-    }
-    NODE temp;
-    temp=first;
-    first=first->next;
-     free(temp);
-    printf("Bill processed Successfully\n");
+void deletion(){
+  if(head==NULL){
+    printf("Empty \n");
+    return ;
+  }
+if(head->next==NULL){
+  free(head);
+  head=NULL;
+}
+else{
+  NODE temp=head;
+  head=head->next;
+  free(temp);
+}
+printf("Deletion from the front successful\n");
 }
 void display(){
-    NODE temp;
-    temp=first;
-    if(temp==NULL){
-        printf("No bill to process\n");
-        return ;
-    }
-    while(temp!=NULL){
-        printf("Bill :%s",temp->id);
-        temp=temp->next;
-    }
+  if(head==NULL){
+    printf("Empty\n");
+    return ;
+  }
+  NODE curr=head;
+  while(curr!=NULL){
+    printf("Bill  Id : %d  ",curr->data);
+    curr=curr->next;
+  }
+  printf("\nSuccessfully Displayed\n");
 }
 
 int main(){
@@ -65,14 +67,15 @@ int main(){
         printf("Enter your choice\n");
         scanf("%d",&choice);
         switch(choice){
-            case 1:insert();
-            break;
-            case 2: delete();
-            break;
-            case 3: display();
-            break;
-            case 4: exit(0);
+          case 1 : insert();
+                   break;
+          case 2: deletion();
+                  break;
+          case 3: display();
+                  break;
+          case 4: exit(0);
         }
     }
-    return 1;
+    return 0;
+
 }
