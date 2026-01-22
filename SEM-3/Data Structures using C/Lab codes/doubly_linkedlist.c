@@ -1,111 +1,113 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<ctype.h>
 #include<string.h>
 
 struct node{
-    char filename[20];
-    int size;
-    struct node * prev;
-    struct node *next;
-}node;
+  char filename[20];
+  int size;
+  struct node* prev;
+  struct node* next;
+};
 
-typedef struct node * NODE;
-NODE first=NULL;
+typedef struct node* NODE;
+
+NODE head=NULL;
 
 void insert(){
-    NODE temp;
-    temp=(struct node *)malloc(sizeof(struct node));
-    if(temp==NULL){
-        printf("Memory allocation failed\n");
-        return ;
+  NODE temp=(struct node*)malloc(sizeof(struct node));
+  printf("Enter the file name\n");
+  if(temp==NULL){
+    printf("Memory allocation for the file falied\n");
+    return ;
+  }
+  scanf("%s",temp->filename);
+  temp->prev=NULL;
+  temp->next=NULL;
+  if(head==NULL){
+    head=temp;
+  }
+  else{
+    temp->next=head;
+    head->prev=temp;
+    head=temp;
     }
-    printf("Enter filename\n");
-    scanf("%s",temp->filename);
-    printf("Enter the size\n");
-    scanf("%d",&temp->size);
-    temp->prev=NULL;
-    temp->next=NULL;
+  printf("New file %s added at the front\n",head->filename);
 
-    if(first==NULL){
-        first=temp;
-    }
-    else{
-        temp->next=first;
-        first->prev=temp;
-        temp->prev=NULL;
-        first=temp;
-    }
-    printf("Inserted to the front successfully.\n");
-}
+  }
 void delete(){
-    int pos;
-    NODE temp;
-    int count=1;
-    temp=first;
-    printf("position\n");
-    scanf("%d",&pos);
-    if(first==NULL){
-        printf("List is empty\n");
-        return ;
+  if(head==NULL){
+    printf("No files to delete\n");
+    return ;
+  }
+  NODE curr=head;
+  int loc;
+  int count=0;
+  printf("Enter the deleting file's position\n");
+  scanf("%d",&loc);
+  while(curr!=NULL){
+    count+=1;
+    if(count==loc){
+      break;
     }
-    if(pos==1){
-        if(first->next==NULL){
-            free(first);
-            first=NULL;
-            printf("Deleted\n");
-            return ;
-        }
-        temp=first;
-        first=first->next;
-        first->prev=NULL;
-        free(temp);
-        return ;
-    }
-    while(temp!=NULL&&count<pos){
-        temp=temp->next;
-        count++;
-    }
-    if(temp==NULL){
-        printf("Invalid position\n");
-        return ;
-    }
-    if(temp->next==NULL){
-        temp->prev->next=NULL;
-        free(temp);
+    curr=curr->next;
+  }
+  if(curr==NULL){
+    printf("Invalid position\n");
+    return ;
+  }
+  if(curr==head){
+    if(curr->next==NULL){
+      free(head);
+      head=NULL;
     }
     else{
-        temp->prev->next=temp->next;
-        temp->next->prev=temp->prev;
+      head=curr->next;
+      head->prev=NULL;
+      free(curr);
     }
-    printf("deleted successfully\n");
+  }
+else if(curr->next ==NULL){
+    curr->prev->next=NULL;
+    free(free);
+    }
+  else{
+    curr->prev->next=curr->next;
+    curr->next->prev=curr->prev;
+    free(curr);
+  }
+  printf("File deleted\n");
 }
 void display(){
-    NODE temp;
-    temp=first;
-    if(temp==NULL){
-        printf("Empty\n");
-        return ;
-    }
-    while(temp!=NULL){
-        printf("File: %s  SIZE: %d\n",temp->filename,temp->size);
-        temp=temp->next;
-    }
+  if(head==NULL){
+    printf("No files to display\n");
+    return ;
+  }
+  NODE curr=head;
+  while(curr!=NULL){
+    int l=strlen(curr->filename);
+    printf("%s size:%d | ",curr->filename,l);
+    curr=curr->next;
+  }
+  printf("\n");
 }
+
 int main(){
-    int choice;
-    while(1){
-        printf("1.Add File\n2.Delete File\n3.Display\n4.Quit\n");
-        printf("Enter the choice\n");
-        scanf("%d",&choice);
-        switch(choice){
-            case 1: insert();
-            break;
-            case 2:delete();
-            break;
-            case 3:display();
-            break;
-            case 4: return 1;
-        }
+  int choice;
+  while(1){
+    printf("1.Add File\n2.Delete File\n3.Display Files\n");
+    printf("Enter you Choice\n");
+    scanf("%d",&choice);
+    switch (choice){
+      case 1: insert();
+              break;
+      case 2: delete();
+              break;
+      case 3: display();
+              break;
+      case 4: printf("Quited\n");
+              exit(0);
     }
-    return 1;
+  }
+  return 0;
 }
