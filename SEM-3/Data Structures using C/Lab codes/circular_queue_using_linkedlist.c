@@ -1,85 +1,85 @@
-#include <stdio.h>
-#include <string.h>
+#include<stdio.h>
 #include<stdlib.h>
 
 struct node{
-    int id;
-    struct node * next;
-}node;
+  int data;
+  struct node* link;
+};
 typedef struct node* NODE;
+
 NODE rear=NULL;
 
 void enqueue(){
-    NODE temp;
-    temp=(NODE)malloc(sizeof(struct node));
-    if(temp==NULL){
-        printf("Allocation failed\n");
-        return ;
-    }
-    printf("Enter customer id\n");
-    scanf("%d",&temp->id);
-    if(rear==NULL){
-        rear=temp;
-        rear->next=rear;
-    }
-    else{
-        temp->next=rear->next;
-        rear->next=temp;
-        rear=temp;
-    }
-    printf("Inserted at the rear end\n");
+  int key;
+  NODE temp=(NODE)malloc(sizeof(struct node));
+  if(temp==NULL){
+    printf("Sorry the heap is Full\n");
     return ;
+  }
+  printf("Enter the customer ID\n");
+  scanf("%d",&key);
+  temp->data=key;
+  temp->link=NULL;
+  if(rear==NULL){
+    rear=temp;
+    rear->link=rear;
+  }
+  else{
+    temp->link=rear->link;
+    rear->link=temp;
+    rear=temp;
+  }
+  printf("customer %d added to the queue\n",key);
 }
+
 void dequeue(){
-    if(rear==NULL){
-        printf("Queue is empty\n");
-        return ;
-    }
-    NODE front=rear->next;
-    if(front==rear){
-        rear=NULL;
-        free(front);
-    }
-    else{
-        rear->next=front->next;
-        free(front);
-    }
-    printf("Element deleted from the frontend\n");
+  if(rear==NULL){
+    printf("No customers to serve\n");
     return ;
+  }
+  int key=rear->link->data;
+  if(rear->link==rear){
+    free(rear);
+    rear=NULL;
+  }
+  else{
+    NODE temp=rear->link;
+    rear->link=temp->link;
+    free(temp);
+  }
+  printf("%d Served\n",key);
 }
 void display(){
-    if(rear==NULL){
-        printf("Empty!\n");
-    }
-    else{
-        NODE temp=rear->next;
-    while(1){
-        printf("Customer id:%d\n",temp->id);
-        if(temp->next==rear->next)
-            break;
-        temp=temp->next;
-    }
-}
-return ;
+  if(rear==NULL){
+    printf("No customers in Queue\n");
+    return ;
+  }
+  NODE curr=rear->link;
+  printf("The customers in Queue \n");
+  while(1){
+    printf("customer id : %d  ",curr->data);
+    curr=curr->link;
+    if(curr==rear->link)
+      break;
+  }
+  printf("\n");
 }
 
 int main(){
-    int choice;
-    while(1){
-        printf("1.Enqueue\n2.Dequeue\n3.Display\n4.exit\n");
-        printf("Enter your choice\n");
-        scanf("%d",&choice);
-        switch(choice){
-            case 1: enqueue();
-            break;
-            case 2: dequeue();
-            break;
-            case 3:display();
-            break;
-            case 4: exit(0);
-        }
+  int choice;
+  while(1){
+    printf("1.Insert\n2.Delete\n3.Display\n4.Quit\n");
+    printf("Enter your choice\n");
+    scanf("%d",&choice);
+    switch(choice){
+      case 1 : enqueue();
+               break;
+      case 2 : dequeue();
+               break;
+      case 3 : display();
+               break;
+      case 4 : printf("Quited\n");
+               exit(0);
     }
-    return 1;
+  }
 }
-
-
