@@ -1,80 +1,81 @@
 #include<stdio.h>
-#include<string.h>
-#include <stdlib.h>
+#include<stdlib.h>
 
-int front;
-int rear;
-int *q;
 int size=10;
+struct q{
+  int *data;
+  int front,rear;
+};
+typedef struct q queue;
 
-void initialise(){
-    q=(int *)malloc(size*sizeof(int));
-    front=-1;
-    rear=-1;
+void initialise(queue* q){
+  q->data=(int *)malloc(size*sizeof(int));
+  q->rear=-1;
+  q->front=-1;
 }
 
-void enqueue(){
-    if(rear==size-1){
-        printf("The queue is full\n");
-        return ;
-    }
-    int item;
-    printf("Enter the customer number\n");
-    scanf("%d",&item);
-    if(rear==-1){
-        front=0;
-        rear=0;
-        q[rear]=item;
-    }
-    else{
-        q[++rear]=item;
-    }
-    printf("Number added to the queue\n");
+void enqueue(queue* q){
+ if(q->rear==size-1){
+    printf("Overflow\n");
+    return ;
+  }
+  int data;
+  printf("Enter the data\n");
+  scanf("%d",&data);
+  if(q->rear==-1){
+    q->front=0;
+    q->rear=0;
+    q->data[q->rear]=data;
+  }
+  else{
+    q->rear=(q->rear+1);
+    q->data[q->rear]=data;
+  }
+  printf("%d inserted to the queue\n",data);
 }
-void dequeue(){
-    if(rear==-1){
-        printf("The queue is empty\n");
-        return ;
-    }
-    if(front==rear){
-        front =-1;
-        rear=-1;
-    }
-    else{
-        front++;
-    }
-    printf("Element deleted successfully\n");
+void dequeue(queue* q){
+  if(q->rear==-1){
+    printf("Underflow\n");
+    return ;
+  }
+  if(q->rear==q->front){
+    q->rear=q->front=-1;
+  }
+  else{
+    q->front=(q->front+1);
+  }
+  printf("Deletion successful\n");
 }
-
-void display(){
-    if(rear==-1){
-        printf("Queue is empty\n");
-        return ;
-    }
-    printf("Queue elements are:\n");
-    for(int i=front;i<=rear;i++){
-        printf("%d  ",q[i]);
-    }
+void display(queue* q){
+  if(q->rear==-1){
+    printf("Empty!\n");
+    return ;
+  }
+  int i=q->front;
+  while(i<=q->rear){
+    printf("%d  ",q->data[i]);
+    i+=1;
+  }
+  printf("\nDisplay successful\n");
 }
 
 int main(){
-    int choice;
-    initialise();
-    while(1){
-        printf("1.Enqueue\n2.Dequeue\n3.Display\n4.Exit\n");
-        printf("Enter your choice\n");
-        scanf("%d",&choice);
-        switch(choice){
-            case 1:enqueue();
-            break;
-            case 2: dequeue();
-            break;
-            case 3:display();
-            break;
-            case 4:
-            free(q);
-            exit(0);
-        }
+  int choice;
+  queue q;
+  initialise(&q);
+  while(1){
+    printf("\n1.enqueue\n2.dequeue\n3.display\n4.quit\n");
+    printf("Enter your choice\n");
+    scanf("%d",&choice);
+    switch(choice){
+      case 1: enqueue(&q);
+              break;
+      case 2: dequeue(&q);
+              break;
+      case 3: display(&q);
+              break;
+      case 4: exit(0);
     }
-    return 1;
+  }
+  return 0;
 }
