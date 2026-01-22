@@ -39,8 +39,7 @@ void postfix_evaluate(char postfix[]){
                         push(result);
                         break;
                 default: printf("Invalid operator\n");
-                        exit(0);
-                
+                              exit(0);
             }
         }
     }
