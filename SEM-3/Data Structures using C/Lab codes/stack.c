@@ -1,76 +1,70 @@
 #include<stdio.h>
 #include<stdlib.h>
-
 int size=10;
-int ele;
+struct node{
+  int* data;
+  int top;
+};
+typedef struct node stack;
 
-typedef struct stack{
-	int  *data;
-	int top;
-}stack;
-
-void initialise(stack *p){
-	p->top=-1;
-	p->data=(int *)malloc(size*sizeof(int));
-	if(!p->data){
-		printf("Allocation failed!");
-		exit(EXIT_FAILURE);
-	}
-}
-void push(stack *p){
-	if(p->top==size-1){
-		printf("Overflow!!\n");
-	}
-	else{
-		printf("Eneter the element to push\n");
-		scanf("%d",&ele);
-		p->data[++p->top]=ele;
-		printf("Element %d pushed\n",ele);
-	}
-}
-void pop(stack *p){
-	if(p->top==-1){
-		printf("The stack is empty!\n");
-	}
-	else{
-		p->top-=1;
-		printf("The element %d deleted!",p->data[p->top+1]);
-	}
-}
-void display(stack *p){
-	if(p->top==-1){
-		printf("Stack is empty!\n");
-	}
-	else{
-		for( int i=p->top;i>=0;i--){
-			printf("%d\n",p->data[i]);
-		}
-	}
+void initialise(stack* s){
+  s->data=(int*)malloc(size*sizeof(int));
+  if(s->data==NULL){
+    printf("Allocation failed\n");
+    return ;
+  }
+  s->top=-1;
 }
 
+void push(stack* s){
+  if(s->top==size-1){
+    printf("Overflow\n");
+    return ;
+  }
+  int item;
+  printf("enter the webpage number\n");
+  scanf("%d",&item);
+  s->data[++s->top]=item;
+  printf("New tab opened successfully\n");
+}
+
+void pop(stack* s){
+  if(s->top==-1){
+    printf("No active tabs\n");
+    return ;
+  }
+  s->top-=1;
+  printf("The current tab closed\n");
+}
+void display(stack* s){
+  if(s->top==-1){
+    printf("No opened tabs\n");
+    return ;
+  }
+  printf("All the active pages:\n");
+  for(int i=s->top;i>=0;i--){
+    printf("Web page no:%d\n",s->data[i]);
+  }
+  printf("\n");
+}
 int main(){
-	int choice=-1;
-    stack q;
-    initialise(&q);
-    while(1){
-        printf("-----------------------------------------------------------------\n");
-        printf("1.push\n2.pop\n3.Display\n4.Quit\n");
-        printf("Enter the choice\n");
-        scanf("%d",&choice);
-        switch(choice){
-            case 1: push(&q);
-            break;
-            case 2: pop(&q);
-            break;
-            case 3:display(&q);
-            break;
-            case 4: 
-            printf("Quited");
-			free(q.data);
-            return 0;
-            default :printf("Invalid choice\n");
-        }   
+  int choice;
+  stack s;
+  initialise(&s);
+  while(1){
+    printf("\n1.Open new page\n2.close recent tab\n3.Display all active tabs\n4.Quit\n");
+    printf("Enter your choice\n");
+    scanf("%d",&choice);
+    switch(choice){
+      case 1: push(&s);
+              break;
+      case 2: pop(&s);
+              break;
+      case 3: display(&s);
+              break;
+      case 4: exit(0);
     }
-    return 1;
 
+  }
+  return 0;
 }
