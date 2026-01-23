@@ -1,5 +1,9 @@
 # 📘 College Stack
 
+## For college notes and materials you can check the drive link:
+### [SEM-1,2]("https://drive.google.com/drive/folders/1FQjwfic-MeQJpr4zzUzyUmtUXVMdYkkv")
+### [SEM-3]("https://drive.google.com/drive/folders/17kKLagE-plpAd4BRrcKI_Euasvtr_3gU")
+
 ## Overview
 
 This repository is a structured collection of **lab programs and programs** related to **core programming and computer science subjects**.
@@ -64,3 +68,4 @@ You can contribute:
 - Reduce confusion during lab preparation
 
 ---
+
