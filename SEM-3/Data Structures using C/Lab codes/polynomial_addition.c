@@ -40,7 +40,7 @@ NODE addpoly(NODE p1,NODE p2,NODE res){
       p1=p1->next;
       p2=p2->next;
     }
-    else if(p1->exp>p2->exp){
+    else if(p1->exp > p2->exp){
       res=insert(res,p1->coeff,p1->exp);
       p1=p1->next;
     }
@@ -66,7 +66,7 @@ void display(NODE head){
     NODE curr=head;
     while(curr!=NULL){
       printf("%dx^%d",curr->coeff,curr->exp);
-      if(curr->next!=NULL){
+      if(curr->next!=NULL && curr->next->coeff>=0){
         printf("+");
       }
       curr=curr->next;
