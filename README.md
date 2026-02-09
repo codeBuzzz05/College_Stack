@@ -60,7 +60,7 @@ You can contribute:
 
 ---
 
-## 🌱 Long-Term Vision
+##  Long-Term Vision
 
 - Build a **shared programming reference** for RIT students
 - Preserve lab programs across batches
@@ -68,6 +68,7 @@ You can contribute:
 - Reduce confusion during lab preparation
 
 ---
+
 
 
 
